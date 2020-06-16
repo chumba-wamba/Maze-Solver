@@ -34,6 +34,11 @@ class BreadthFirstSearch:
             self.visited[curr_node] = 1
             self.solution.append(curr_node)
 
+            # Breaking out of the loop when destination
+            # is reached
+            if self.end != None and curr_node == self.end:
+                break
+
             # Adding only the unmarked neighbours of
             # the current node the queue
             for temp_node in self.graph[curr_node]:
