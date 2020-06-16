@@ -13,6 +13,8 @@ class DepthFirstSearch:
         self.visited = {key: 0 for key in graph}
         self.solution = []
 
+        self.parent = {}
+
     def fit(self):
         # Edge case - Start node without neighbours
         if not self.graph[self.start]:
@@ -26,6 +28,7 @@ class DepthFirstSearch:
         node_list = self.graph[self.start]
         for node in node_list[::-1]:
             self.stack.append(node)
+            self.parent[node] = self.start
 
         # While loop to repeat the above process till
         # the stack becomes empty
@@ -41,8 +44,19 @@ class DepthFirstSearch:
 
             # Adding only the unmarked neighbours of
             # the current node the stack
-            for temp_node in self.graph[curr_node][::-1]:
-                if self.visited[temp_node] != 1:
-                    self.stack.append(temp_node)
+            for adjacent in self.graph[curr_node][::-1]:
+                if self.visited[adjacent] != 1:
+                    self.stack.append(adjacent)
+                    self.parent[adjacent] = curr_node
 
         return self.solution
+
+    def back_track(self):
+        print(self.parent)
+        if self.end and self.parent:
+            path = [self.end]
+            while path[-1] != self.start:
+                path.append(self.parent[path[-1]])
+            path.reverse()
+
+            return path

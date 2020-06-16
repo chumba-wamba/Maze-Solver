@@ -44,6 +44,10 @@ BFS = BreadthFirstSearch(tree, 0)
 solution = BFS.fit()
 print(str(evaluate([0, 1, 2, 3, 4, 5], solution)))
 
+BFS = BreadthFirstSearch(tree, 0)
+solution = BFS.fit()
+print(str(evaluate([0, 1, 2, 3, 4, 5], solution)))
+
 BFS = BreadthFirstSearch(tree, 0, 2)
 solution = BFS.fit()
 print(str(evaluate([0, 1, 2], solution)))
@@ -57,9 +61,9 @@ DFS = DepthFirstSearch(graph, 2)
 solution = DFS.fit()
 print(str(evaluate([2, 0, 1, 3], solution)))
 
-DFS = DepthFirstSearch(tree, 0)
+DFS = DepthFirstSearch(tree, 0, 4)
 solution = DFS.fit()
-print(str(evaluate([0, 1, 2, 4, 5, 3], solution)))
+print(str(evaluate([0, 1, 2, 4], solution)))
 
 DFS = DepthFirstSearch(tree, 0, 2)
 solution = DFS.fit()
