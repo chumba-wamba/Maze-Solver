@@ -1,13 +1,14 @@
 import random
 import time
 import os
+import copy
 
 
 class AStar:
     '''
     This implementation of the A Start algorithm 
-    will only work for a grid like graph becasue
-    the heuristic to be used is SLD.
+    will only work for a 2D grid becasue the
+    heuristic chosen is the simple SLD.
     '''
 
     def __init__(self, grid, grid_dims, start, end):
@@ -18,6 +19,7 @@ class AStar:
 
         self.solution = []
         self.visited = {key: 0 for key in grid}
+        self.path_cache = []
 
     def id_to_loc(self, id):
         grid_l, grid_b = self.grid_dims
@@ -33,12 +35,18 @@ class AStar:
         curr_node = self.start
         self.solution.append(curr_node)
         self.visited[curr_node] = 1
+
+        self.path_cache.append([curr_node])
+
         while(curr_node != self.end):
             heuristic_cost = {}
+            path_cache_temp = copy.deepcopy(self.path_cache[-1])
             for adjacent in self.grid[curr_node]:
                 if not self.visited[adjacent]:
                     heuristic_cost[adjacent] = self.heuristic(adjacent)
                     self.visited[adjacent] = 1
+
+                    self.path_cache.append(path_cache_temp + [adjacent])
 
             if heuristic_cost:
                 temp = min(heuristic_cost.values())
