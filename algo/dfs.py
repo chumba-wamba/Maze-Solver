@@ -1,6 +1,3 @@
-import random
-import time
-import os
 
 
 class DepthFirstSearch:
@@ -49,7 +46,9 @@ class DepthFirstSearch:
                     self.stack.append(adjacent)
                     self.parent[adjacent] = curr_node
 
-        return self.solution
+        if not self.end or self.end in self.solution:
+            return self.solution
+        return None
 
     def back_track(self):
         print(self.parent)
