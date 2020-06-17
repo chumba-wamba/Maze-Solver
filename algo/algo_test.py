@@ -38,8 +38,26 @@ grid = {
     8: [5, 7]
 }
 
+grid_blocked = {
+    0: [1],
+    1: [0, 2],
+    2: [1],
+    6: [7],
+    7: [6, 8],
+    8: [7]
+}
 
-# Test case evaluator
+grid_complicated = {
+    0: [1, 3],
+    1: [0, 2],
+    2: [1],
+    3: [0, 6],
+    6: [3, 7],
+    7: [6, 8],
+    8: [7]
+}
+
+
 def evaluate(correct_solution, solution):
     if(correct_solution == solution):
         return "Test Case Passed"
@@ -87,13 +105,22 @@ DFS = DepthFirstSearch(tree_string, "0")
 solution = DFS.fit()
 print(str(evaluate(["0", "1", "2", "3"], solution)))
 
+DFS = DepthFirstSearch(grid_blocked, 0, 7)
+solution = DFS.fit()
+
 
 # Tesing for A* Algorithm
 print("--- Testing A* ---")
-AS = AStar(grid, (3, 3), 0, 7)
-solution = AS.fit()
-print(str(evaluate([0, 3, 6, 7], solution)))
+AS = AStar(grid, (3, 3), 0, 5)
+solution, open_set_cache = AS.fit()
+print(open_set_cache, solution)
+# print(str(evaluate([0, 3, 6, 7], solution)))
 
-AS = AStar(grid, (3, 3), 0, 4)
-solution = AS.fit()
-print(str(evaluate(None, solution)))
+AS = AStar(grid_blocked, (3, 3), 0, 7)
+solution, open_set_cache = AS.fit()
+# print(open_set_cache, solution)
+# print(str(evaluate(None, solution)))
+
+AS = AStar(grid_complicated, (3, 3), 0, 7)
+solution, open_set_cache = AS.fit()
+# print(open_set_cache, solution)
