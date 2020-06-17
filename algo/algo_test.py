@@ -67,46 +67,51 @@ def evaluate(correct_solution, solution):
 # Testing for Breadth First Search Algorithm
 print("--- Testing BFS ---")
 BFS = BreadthFirstSearch(graph, 2)
-solution = BFS.fit()
+solution, closed_set = BFS.fit()
+print(solution, closed_set)
 print(str(evaluate([2, 0, 3, 1], solution)))
 
 BFS = BreadthFirstSearch(tree, 0)
-solution = BFS.fit()
-print(str(evaluate([0, 1, 2, 3, 4, 5], solution)))
-
-BFS = BreadthFirstSearch(tree, 0)
-solution = BFS.fit()
+solution, closed_set = BFS.fit()
+print(solution, closed_set)
 print(str(evaluate([0, 1, 2, 3, 4, 5], solution)))
 
 BFS = BreadthFirstSearch(tree, 0, 2)
-solution = BFS.fit()
+solution, closed_set = BFS.fit()
+print(solution, closed_set)
 print(str(evaluate([0, 1, 2], solution)))
 
 BFS = BreadthFirstSearch(tree_string, "0")
-solution = BFS.fit()
+solution, closed_set = BFS.fit()
+print(solution, closed_set)
 print(str(evaluate(["0", "1", "2", "3"], solution)))
 
 
 # Testing for Depth First Search Algorithm
 print("--- Testing DFS ---")
 DFS = DepthFirstSearch(graph, 2)
-solution = DFS.fit()
+solution, closed_set = DFS.fit()
+print(solution, closed_set)
 print(str(evaluate([2, 0, 1, 3], solution)))
 
 DFS = DepthFirstSearch(tree, 0, 4)
-solution = DFS.fit()
+solution, closed_set = DFS.fit()
+print(solution, closed_set)
 print(str(evaluate([0, 1, 2, 4], solution)))
 
 DFS = DepthFirstSearch(tree, 0, 2)
-solution = DFS.fit()
+solution, closed_set = DFS.fit()
+print(solution, closed_set)
 print(str(evaluate([0, 1, 2], solution)))
 
 DFS = DepthFirstSearch(tree_string, "0")
-solution = DFS.fit()
+solution, closed_set = DFS.fit()
+print(solution, closed_set)
 print(str(evaluate(["0", "1", "2", "3"], solution)))
 
 DFS = DepthFirstSearch(grid_blocked, 0, 7)
 solution = DFS.fit()
+print(solution, closed_set)
 
 
 # Tesing for A* Algorithm

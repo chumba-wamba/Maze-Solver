@@ -22,6 +22,8 @@ class BreadthFirstSearch:
         if self.end and self.end not in self.graph.keys():
             return None
 
+        open_set_cache = []
+
         # Adding the start node to the solution list
         # Adding all the neighbours of the start node
         # to the BFS queue and marking them as visited
@@ -31,6 +33,8 @@ class BreadthFirstSearch:
         for node in node_list:
             self.queue.append(node)
             self.parent[node] = self.start
+
+        open_set_cache.append(copy.deepcopy(self.queue))
 
         # While loop to repeat the above process till
         # the queue becomes empty
@@ -51,8 +55,10 @@ class BreadthFirstSearch:
                     self.queue.append(adjacent)
                     self.parent[adjacent] = curr_node
 
+            open_set_cache.append(copy.deepcopy(self.queue))
+
         if not self.end or self.end in self.solution:
-            return self.solution
+            return self.solution, open_set_cache
         return None
 
     def back_track(self):

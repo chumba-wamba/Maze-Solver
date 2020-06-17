@@ -22,6 +22,8 @@ class DepthFirstSearch:
         if self.end and self.end not in self.graph.keys():
             return None
 
+        open_set_cache = []
+
         # Adding the start node to the solution list
         # Adding all the neighbours of the start node
         # to the DFS Stack and marking them as visited
@@ -31,6 +33,8 @@ class DepthFirstSearch:
         for node in node_list[::-1]:
             self.stack.append(node)
             self.parent[node] = self.start
+
+        open_set_cache.append(copy.deepcopy(self.stack))
 
         # While loop to repeat the above process till
         # the stack becomes empty
@@ -51,8 +55,10 @@ class DepthFirstSearch:
                     self.stack.append(adjacent)
                     self.parent[adjacent] = curr_node
 
+            open_set_cache.append(copy.deepcopy(self.stack))
+
         if not self.end or self.end in self.solution:
-            return self.solution
+            return self.solution, open_set_cache
         return None
 
     def back_track(self):
