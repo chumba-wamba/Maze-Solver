@@ -18,6 +18,10 @@ class BreadthFirstSearch:
         if not self.graph[self.start]:
             return []
 
+        # Edge case - End node does not exist
+        if self.end and self.end not in self.graph.keys():
+            return None
+
         # Adding the start node to the solution list
         # Adding all the neighbours of the start node
         # to the BFS queue and marking them as visited
