@@ -3,7 +3,7 @@ import copy
 
 class AStar:
     '''
-    This implementation of the A Start algorithm 
+    This implementation of the A Start algorithm
     will only work for a 2D grid.
     '''
 
@@ -22,6 +22,13 @@ class AStar:
     def id_to_loc(id, dims):
         grid_l, grid_b = dims
         return (id//(grid_l), id % (grid_l))
+
+    def reconstruct_path(self, came_from, curr):
+        total_path = [curr]
+        while curr in came_from.keys():
+            curr = came_from[curr]
+            total_path.insert(0, curr)
+        return total_path
 
     def euclidean_heuristic(self, curr_index):
         curr_pos = self.id_to_loc(curr_index, self.grid_dims)
@@ -42,27 +49,38 @@ class AStar:
             return self.manhattan_heuristic
 
     def fit(self):
-        curr_node = self.start
-        self.solution.append(curr_node)
-        self.visited[curr_node] = 1
+        if self.end not in self.grid.keys():
+            return None
 
-        self.path_cache.append([curr_node])
+        open_set = {self.start}
+        came_from = {}
 
-        while(curr_node != self.end):
-            heuristic_cost = {}
-            path_cache_temp = copy.deepcopy(self.path_cache[-1])
-            for adjacent in self.grid[curr_node]:
-                if not self.visited[adjacent]:
-                    heuristic_cost[adjacent] = self.heuristic_picker(
-                    )(adjacent)
-                    self.visited[adjacent] = 1
+        g_score = {key: 'inf' for key in self.grid}
+        g_score[self.start] = 0
 
-                    self.path_cache.append(path_cache_temp + [adjacent])
+        f_score = {key: 'inf' for key in self.grid}
+        f_score[self.start] = self.heuristic_picker()(self.start)
 
-            if heuristic_cost:
-                temp = min(heuristic_cost.values())
-                curr_node = [
-                    key for key in heuristic_cost if heuristic_cost[key] == temp][0]
-            self.solution.append(curr_node)
+        while open_set:
+            val = min([f_score[item] for item in open_set])
+            for key, value in f_score.items():
+                if val == value:
+                    curr = key
 
-        return self.solution
+            if curr == self.end:
+                return self.reconstruct_path(came_from, curr)
+
+            open_set.remove(curr)
+            for adjacent in self.grid[curr]:
+                tentative_g_score = g_score[curr]
+
+                if g_score[adjacent] == "inf" or tentative_g_score < g_score[adjacent]:
+                    came_from[adjacent] = curr
+                    g_score[adjacent] = tentative_g_score
+                    f_score[adjacent] = g_score[adjacent] + \
+                        self.heuristic_picker()(adjacent)
+
+                    if adjacent not in open_set:
+                        open_set.add(adjacent)
+
+        return None

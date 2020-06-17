@@ -90,6 +90,10 @@ print(str(evaluate(["0", "1", "2", "3"], solution)))
 
 # Tesing for A* Algorithm
 print("--- Testing A* ---")
-AS = AStar(grid, (3, 3), 0, 5)
+AS = AStar(grid, (3, 3), 0, 7)
 solution = AS.fit()
-print(str(evaluate([0, 1, 2, 5], solution)))
+print(str(evaluate([0, 3, 6, 7], solution)))
+
+AS = AStar(grid, (3, 3), 0, 4)
+solution = AS.fit()
+print(str(evaluate(None, solution)))
