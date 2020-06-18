@@ -111,21 +111,19 @@ print(str(evaluate(["0", "1", "2", "3"], solution)))
 
 DFS = DepthFirstSearch(grid_blocked, 0, 7)
 solution = DFS.fit()
-print(solution, closed_set)
+print(solution)
 
 
 # Tesing for A* Algorithm
 print("--- Testing A* ---")
 AS = AStar(grid, (3, 3), 0, 5)
 solution, open_set_cache = AS.fit()
-print(open_set_cache, solution)
-# print(str(evaluate([0, 3, 6, 7], solution)))
+print(solution, open_set_cache)
 
 AS = AStar(grid_blocked, (3, 3), 0, 7)
 solution, open_set_cache = AS.fit()
-# print(open_set_cache, solution)
-# print(str(evaluate(None, solution)))
+print(solution, open_set_cache)
 
 AS = AStar(grid_complicated, (3, 3), 0, 7)
 solution, open_set_cache = AS.fit()
-# print(open_set_cache, solution)
+print(solution, open_set_cache)

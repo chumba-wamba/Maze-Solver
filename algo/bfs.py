@@ -16,11 +16,11 @@ class BreadthFirstSearch:
     def fit(self):
         # Edge case - Start node without neighbours
         if not self.graph[self.start]:
-            return []
+            return [self.start], [[]]
 
         # Edge case - End node does not exist
         if self.end and self.end not in self.graph.keys():
-            return None
+            return "NodeError: End node does not exist"
 
         open_set_cache = []
 
@@ -46,6 +46,7 @@ class BreadthFirstSearch:
             # Breaking out of the loop when destination
             # is reached
             if self.end != None and curr_node == self.end:
+                open_set_cache.append(copy.deepcopy(self.queue))
                 break
 
             # Adding only the unmarked neighbours of
@@ -59,7 +60,7 @@ class BreadthFirstSearch:
 
         if not self.end or self.end in self.solution:
             return self.solution, open_set_cache
-        return None
+        return "NodeError: End node can not be reached"
 
     def back_track(self):
         print(self.parent)

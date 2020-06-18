@@ -52,7 +52,7 @@ class AStar:
         if self.end not in self.grid.keys():
             return None
 
-        open_set_cache, closed_set_cache = [], []
+        open_set_cache = []
 
         open_set = {self.start}
         came_from = {}
@@ -65,17 +65,17 @@ class AStar:
 
         while open_set:
             open_set_cache.append(copy.deepcopy(open_set))
-
             val = min([f_score[item] for item in open_set])
             for key, value in f_score.items():
                 if val == value:
                     curr = key
 
-            if curr == self.end:
-                return self.reconstruct_path(came_from, curr), open_set_cache
-
             open_set.remove(curr)
-            closed_set_cache.append(curr)
+
+            if curr == self.end:
+                open_set_cache.append(copy.deepcopy(open_set))
+                return self.reconstruct_path(came_from, curr), open_set_cache[1:]
+
             for adjacent in self.grid[curr]:
                 tentative_g_score = g_score[curr]
 
@@ -88,4 +88,6 @@ class AStar:
                     if adjacent not in open_set:
                         open_set.add(adjacent)
 
-        return self.reconstruct_path(came_from, curr), open_set_cache
+            if not open_set:
+                open_set_cache.append({})
+        return self.reconstruct_path(came_from, curr), open_set_cache[1:]
