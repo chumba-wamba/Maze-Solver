@@ -7,4 +7,4 @@ To do:
 - [x] Code a Flask server.
 - [x] Code BFS, DFS, and A* in Python.
 - [ ] Develop the front-end using p5.js.
-- [ ] Integrate the fron-end and the back-end.
+- [ ] Integrate the front-end and the back-end.
